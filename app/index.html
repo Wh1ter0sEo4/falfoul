@@ -1,0 +1,293 @@
+
+<!DOCTYPE html>
+<html lang='en' class=''>
+
+<head>
+
+  <meta charset='UTF-8'>
+  <title>App Frame - Music Player by wh1ter0seo4</title>
+
+  <meta name="robots" content="noindex">
+
+
+
+  
+  
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  <style class="INLINE_PEN_STYLESHEET_ID">
+    *, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  background: #eee url("https://github.com/Wh1ter0sEo4/Content-Uploads/blob/main/bck.jpg?raw=true") no-repeat center;
+  background-size: cover;
+  font-family: "Open Sans", sans-serif;
+}
+
+.music-player {
+  position: relative;
+  width: 350px;
+  height: 290px;
+  margin: 150px auto;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  background: #222;
+  overflow: hidden;
+  z-index: 0;
+}
+.music-player img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  z-index: -1;
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  filter: blur(2px);
+}
+.music-player .info {
+  width: 100%;
+  height: 100px;
+  background: #222;
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  position: relative;
+}
+.music-player .info .jp-playlist li {
+  display: none;
+}
+.music-player .info .jp-playlist li a {
+  font-size: 30px;
+  font-weight: 300;
+  text-decoration: none;
+  color: #fff;
+  color: rgba(225, 225, 225, 0.4);
+}
+.music-player .info .jp-playlist li a span {
+  font-size: 14px;
+  display: block;
+  margin-top: 10px;
+}
+.music-player .info .jp-playlist li.jp-playlist-current {
+  display: block;
+}
+.music-player .info .jp-playlist li .jp-free-media, .music-player .info .jp-playlist li .jp-playlist-item-remove {
+  display: none;
+}
+.music-player .info .left, .music-player .info .right {
+  width: 25px;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+.music-player .info .right {
+  left: auto;
+  right: 30px;
+}
+.music-player .info [class^=icon-] {
+  margin: 0 0 10px;
+}
+.music-player .info .center {
+  padding: 20px 0 0;
+}
+.music-player .progress, .music-player .volume-level {
+  width: 100%;
+  height: 5px;
+  display: block;
+  background: #000;
+  position: absolute;
+  bottom: 0px;
+  cursor: pointer;
+  border: none;
+}
+.music-player .progress .ui-slider-range, .music-player .volume-level .ui-slider-range {
+  display: block;
+  background: #ed553b;
+  height: 5px;
+  border-radius: 0;
+}
+.music-player .progress .ui-slider-handle, .music-player .volume-level .ui-slider-handle {
+  position: absolute;
+  top: -8px;
+  width: 8px;
+  height: 22px;
+  background: url("//i.imgur.com/tsqwz1N.png") no-repeat center;
+  border: none;
+  outline: none;
+  margin: 0 0 0 -3px;
+  cursor: move;
+}
+.music-player .controls {
+  text-align: center;
+  width: 100%;
+  height: 190px;
+  background: #982e4b;
+  background: rgba(152, 46, 75, 0.6);
+}
+.music-player .controls .current {
+  font-size: 48px;
+  color: #fff;
+  color: rgba(225, 225, 225, 0.4);
+  padding: 15px 0 20px;
+}
+.music-player .controls .play-controls a {
+  display: inline-block;
+  width: 35px;
+  height: 40px;
+  margin: 0 30px;
+}
+.music-player .controls .volume-level {
+  position: relative;
+  bottom: auto;
+  width: 200px;
+  height: 2px;
+  margin: 30px auto 0;
+  background: rgba(225, 225, 225, 0.3);
+}
+.music-player .controls .volume-level .ui-slider-range {
+  height: 2px;
+}
+.music-player .controls .volume-level .ui-slider-handle {
+  top: -8px;
+  margin-left: -9px;
+  width: 22px;
+  height: 22px;
+  background-image: url("//i.imgur.com/V5i67V2.png");
+}
+.music-player .controls .volume-level .icon-volume-up, .music-player .controls .volume-level .icon-volume-down {
+  position: absolute;
+  right: -34px;
+  top: -8px;
+  width: 22px;
+}
+.music-player .controls .volume-level .icon-volume-down {
+  right: auto;
+  left: -27px;
+}
+
+[class^=icon-] {
+  width: 18px;
+  height: 18px;
+  background: url("//i.imgur.com/E09T8tf.png") no-repeat center;
+  display: block;
+}
+
+.icon-shuffle {
+  background-image: url("//i.imgur.com/AQAxRxS.png");
+}
+.icon-heart {
+  background-image: url("//i.imgur.com/E09T8tf.png");
+}
+.icon-repeat {
+  background-image: url("//i.imgur.com/338F8MX.png");
+}
+.icon-share {
+  background-image: url("//i.imgur.com/PGIC6ME.png");
+}
+.icon-previous {
+  background-image: url("//i.imgur.com/LIqj0nr.png");
+}
+.icon-play {
+  background-image: url("//i.imgur.com/xlBv5aR.png");
+}
+.icon-pause {
+  background-image: url("//i.imgur.com/lIhwduj.png");
+}
+.icon-next {
+  background-image: url("//i.imgur.com/Mb6Nzj5.png");
+}
+.icon-volume-up {
+  background-image: url("//i.imgur.com/qqdoddi.png");
+}
+.icon-volume-down {
+  background-image: url("//i.imgur.com/3iirf2f.png");
+}
+
+.copyrights {
+  text-align: center;
+  text-transform: capitalize;
+  margin: 50px;
+  color: rgba(255, 255, 255, 0.4);
+}
+.copyrights a {
+  color: rgba(152, 46, 75, 0.9);
+  text-decoration: none;
+}
+  </style>
+
+  
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeConsoleRunner-7f4d47902dc785f30dedcac9c996b9f31d4dfcc33567cc48f0431bc918c2bf05.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRefreshCSS-bb9a2ba1f03f6147732cb3cd52ac86c6b24524aa87a05ed0b726f11e46d7e277.js"></script>
+<script src="https://cpwebassets.codepen.io/assets/editor/iframe/iframeRuntimeErrors-4f205f2c14e769b448bcf477de2938c681660d5038bc464e3700256713ebe261.js"></script>
+</head>
+
+<body>
+  <div class="music-player">
+  <!--<div style="background-image: url(https://i.imgur.com/yqB0erk.jpg);" class="album"></div>-->
+  
+  <div class="info">
+    
+    <div class="left">
+      <a href="javascript:;" class="icon-shuffle"></a>
+      <a href="javascript:;" class="icon-heart"></a>
+    </div>
+    
+    <div class="center">
+      <div class="jp-playlist">
+        <ul>
+          <li></li>
+        </ul>
+      </div> 
+    </div>
+    
+    <div class="right">
+      <a href="javascript:;" class="icon-repeat"></a>
+      <a href="javascript:;" class="icon-share"></a>
+    </div>
+    
+    <div class="progress"></div>
+    
+  </div>
+      
+  <div class="controls">
+    <div class="current jp-current-time">00:00</div>
+    <div class="play-controls">
+      <a href="javascript:;" class="icon-previous jp-previous" title="previous"></a>
+      <a href="javascript:;" class="icon-play jp-play" title="play"></a>
+      <a href="javascript:;" class="icon-pause jp-pause" title="pause"></a>
+      <a href="javascript:;" class="icon-next jp-next" title="next"></a>
+    </div>
+    <div class="volume-level">
+      <a href="javascript:;" class="icon-volume-up" title="max volume"></a>
+      <a href="javascript:;" class="icon-volume-down" title="mute"></a>
+    </div>
+  </div>
+  
+  <div id="jquery_jplayer" class="jp-jplayer"></div>
+  
+</div>
+
+<p class="copyrights">
+  Designed by <a href='https://instagram.com/usaym_bs'>Wh1ter0seo4</a>
+</p>
+
+  
+<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.6.4/jquery.jplayer/jquery.jplayer.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jplayer/2.6.4/add-on/jplayer.playlist.min.js"></script>
+  <script  src="https://cdpn.io/cp/internal/boomboom/pen.js?key=pen.js-01a5eaab-9823-a954-7be5-14f601780e48" crossorigin></script>
+</body>
+
+</html>
